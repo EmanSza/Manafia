@@ -1,0 +1,24 @@
+{
+  "name": "manafia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./source/index.js",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "mongoose": "^5.11.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmanSza/Manafia.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmanSza/Manafia/issues"
+  },
+  "homepage": "https://github.com/EmanSza/Manafia#readme"
+}
