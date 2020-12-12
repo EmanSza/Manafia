@@ -245,8 +245,52 @@ function missingPermissions(member, perms){
     `${missingPerms.slice(0, -1).join(", ")} and ${missingPerms.slice(-1)[0]}` :
     missingPerms[0]
 }
+function rect(ctx, x, y, width, height, radius= 5) {
 
+    if (typeof radius === 'number') {
+        radius = {
+            tl: radius,
+            tr: radius,
+            br: radius,
+            bl: radius
+        };
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+    ctx.closePath();
+    ctx.fill();
+}
+
+function shortenText(ctx, text, maxWidth) {
+    let shorten = false;
+    while (ctx.measureText(`${text}...`).width > maxWidth) {
+        if (!shorten) shorten = true;
+        text = text.substr(0, text.length - 1);
+    }
+    return shorten ? `${text}...` : text;
+}
+
+function firstUpperCase(text, split = ' ') {
+    return text.split(split).map(word => `${word.charAt(0).toUpperCase()}${word.slice(1)}`).join(' ');
+}
+
+function trimArray(arr, maxLen = 12) {
+    if (arr.length > maxLen) {
+        const len = arr.length - maxLen;
+        arr = arr.slice(0, maxLen);
+        arr.push(`${len} more...`);
+    }
+    return arr;
+}
 module.exports = {
     processArguments, blacklist, whitelist, paginate,
-    getReply, randomRange, delay, msToTime, missingPermissions
+    getReply, randomRange, delay, msToTime, missingPermissions, rect
 }
